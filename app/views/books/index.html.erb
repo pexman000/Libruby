@@ -1,0 +1,83 @@
+
+<div class="container mt-3">
+<% if logged_in? %>
+  <h1>Welcome back on Libruby, <%= current_user.name %>!</h1>
+<% else %>
+  <h1>Welcome on Libruby!</h1>
+<% end %>
+<%= form_with(url: books_path, method: "get", local: true) do %>
+    <div class="input-group mb-3">
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for books..." %>
+      <div class="input-group-append">
+        <%= submit_tag "Search", class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% @books.each_slice(3) do |row| %>
+    <div class="row">
+      <% row.each do |book| %>
+        <div class="col-md-4">
+          <div class="book">
+            <h5><%= book.title %></h2>
+            <p><%= book.author %></p>
+            <%= link_to 'Show more', book_path(book), class: 'btn btn-success' %>
+            <% if Borrow.exists?(book_id: book.id) && (current_user && Borrow.where(book_id: book.id, user_id: current_user.id).exists?) %>
+                <%= link_to 'Return the book', book_path(book), class: 'btn btn-danger' %>
+            <% elsif Borrow.exists?(book_id: book.id) %>
+              <p class="reserved-text">Already Reserved</p>
+            <% end %>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+<style>
+  /* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: green;
+}
+
+.reserved-text {
+  font-weight:bold;
+  color: red;
+  margin: 0;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.book {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.book h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.book p {
+    margin-bottom: 10px;
+}
+
+</style>

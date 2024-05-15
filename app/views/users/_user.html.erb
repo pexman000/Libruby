@@ -1,0 +1,22 @@
+<div class="card" id="<%= dom_id user %>">
+  <h5 class="card-header">
+    <i class="bi bi-person-circle"></i>&nbsp;
+    <%= user.username %>
+    
+    <div class="btn-group position-absolute end-0 translate-middle " role="group" aria-label="Basic outlined example">
+      <%= link_to user, class: "btn btn-outline-primary btn-sm" do %>
+        <i class="bi bi-eye-fill"></i>
+      <% end %>
+      <% if current_user == user %>
+        <%= link_to edit_user_path(user), class: "btn btn-outline-primary btn-sm" do %>
+          <i class="bi bi-pencil"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">Name : <%= user.name %></p>
+    <p class="card-text">Email : <%= user.email %></p>
+    <p class="card-text"><%= user.password %></p>
+  </div>
+</div>

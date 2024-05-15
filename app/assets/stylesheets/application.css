@@ -1,0 +1,116 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.bg-app{
+    background-color: #c7fcde;
+}
+.card{
+    margin: 5px 0px;
+}
+.m-plus{
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+.navbar{
+    z-index:10000;
+}
+.offcanvas-header{
+    margin-top:14%
+}
+.offcanvas{
+    --bs-offcanvas-width: 300px;
+}
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1140px;
+    }
+    #posts-content{
+        margin-left:5%;
+    }
+}
+[class^="bi-"]::before, [class*=" bi-"]::before {
+    line-height: 1.2;
+}
+.translate-middle {
+    transform: translate(-15%, -12%) !important;
+}
+.translate-middle-connect {
+    transform: translate(-50%, 0%) !important;
+}
+
+/* app/assets/stylesheets/application.css */
+
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .product {
+    border: 1px solid #cccccc;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .product h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .product p {
+    margin-bottom: 5px;
+  }
+
+  .btnerror {
+    background-color: rgb(1, 127, 76);
+    color: rgb(255, 255, 255);
+  }
+
+  .btnerror:hover {
+    background-color: rgb(255, 170, 170);
+    color: white;
+  }
+  
+  /* Liens */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Boutons */
+  .button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #ff7171;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  

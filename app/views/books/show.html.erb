@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <h1><%= @book.title %></h1>
+      <hr>
+      <p><strong>Description:</strong></p>
+      <p><%= @book.author %></p>
+      <p><strong>Author:</strong></p>
+      <p><%= @book.author %></p>
+      <p><strong>Publish Year:</strong></p>
+      <p><%= @book.publish_year %></p>
+
+      <% if !Borrow.exists?(book_id: @book.id) %>
+        <%= form_with(url: borrow_book_path(@book), method: :patch) do |form| %>
+          <%= form.submit 'Borrow', class: 'btn btnerror' %>
+        <% end %>
+      <% else %>
+        <% if Borrow.exists?(book_id: @book.id) && (current_user && Borrow.where(book_id: @book.id, user_id: current_user.id).exists?) %>
+          <%= form_with(url: return_book_path(@book), method: :patch) do |form| %>
+            <%= form.submit 'Return the book', class: 'btn btn-danger' %>
+          <% end %>
+        <% elsif Borrow.exists?(book_id: @book.id) %>
+          <p class="reserved-text">Already Reserved</p>
+        <% end %>
+      <% end %>
+      <%= link_to 'Back', books_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+</div>
+<style>
+  .reserved-text {
+  font-weight:bold;
+  color: red;
+  margin: 0;
+}
+</style>

@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <h1 class="text-center">Inscription</h1>
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(url: registrations_path, method: "post", model: @user) do |form| %>
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+                <%= form.text_field :username, class: "form-control is-invalid", placeholder: "chucknorris" if @user.errors[:username].any? %>
+                <%= form.text_field :username, class: "form-control", placeholder: "chucknorris" unless @user.errors[:username].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:username].join(", ") if @user.errors[:username].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Name</span>
+                <%= form.text_field :name, class: "form-control is-invalid", placeholder: "Chuck Norris" if @user.errors[:name].any? %>
+                <%= form.text_field :name, class: "form-control", placeholder: "Chuck Norris" unless @user.errors[:name].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:name].join(", ") if @user.errors[:name].any? %>
+              </div>
+              <div class="input-group mb-3">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email</span>
+                <%= form.email_field :email, class: "form-control is-invalid", placeholder: "user@example.com" if @user.errors[:email].any? %>
+                <%= form.email_field :email, class: "form-control", placeholder: "user@example.com" unless @user.errors[:email].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:email].join(", ") if @user.errors[:email].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+                <%= form.password_field :password, class: "form-control is-invalid", placeholder: "**********" if @user.errors[:password].any? %>
+                <%= form.password_field :password, class: "form-control", placeholder: "**********" unless @user.errors[:password].any? %>
+              </div>
+              <div class="invalid-feedback">
+                <%= @user.errors[:password].join(", ") if @user.errors[:password].any? %>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Confirm</span>
+                <%= form.password_field :password_confirmation, class: "form-control is-invalid", placeholder: "**********" if @user.errors[:password_confirmation].any? %>
+                <%= form.password_field :password_confirmation, class: "form-control", placeholder: "**********" unless @user.errors[:password_confirmation].any? %>
+              </div>
+              <div class="form-check mb-10 d-flex flew-column">
+              <input class="form-check-input" type="checkbox" name="is_seller" id="is_seller" >
+              <label class="form-check-label" for="is_seller">
+                Vendeur
+              </label>
+            </div>
+              <div class="input-group mb-10 d-flex flew-column">
+              <div class="invalid-feedback">
+                <%= @user.errors[:password_confirmation].join(", ") if @user.errors[:password_confirmation].any? %>
+              </div>
+            </p>
+            <p>
+              <div class="d-flex justify-content-center align-items-center">
+                <%= form.submit "Create",class:"btn btn-success " %>
+              </div>
+            </p>
+            <div class="d-flex justify-content-center align-items-center">Vous possédez déjà un compte ? <%= link_to "Sign in", new_user_path, class:"btn btn-light btn-sm" %></div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
