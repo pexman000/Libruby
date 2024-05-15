@@ -65,18 +65,15 @@
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
       def set_user
         @user = User.find(params[:id])
       end
 
-      # Vérifie que l'utilisateur actuellement connecté est le même que celui dans l'URL
       def correct_user
         @user = User.find(params[:id])
         redirect_to(root_url) unless current_user == @user
       end
 
-      # Only allow a list of trusted parameters through.
       def user_params
         params.require(:user).permit(:username, :name, :password, :email, :seller)
       end

@@ -26,9 +26,9 @@
           </ul>
         <div class="position-absolute end-0 translate-middle-connect" role="search">
             <% if logged_in? %>
-              <%= button_to "Déconnexion", logout_path, method: :delete, class: "btn btn-outline-light" %>
+              <%= button_to "Log out", logout_path, method: :delete, class: "btn btn-danger" %>
               <% else %>
-              <%= link_to "Connexion", new_session_path, class: "btn btn-primary btn-sm" %>
+              <%= link_to "Connexion", new_session_path, class: "btn btn-primary btn-success" %>
             <% end %>
         </div>
       </div>
