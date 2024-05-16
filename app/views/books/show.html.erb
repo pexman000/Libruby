@@ -10,20 +10,18 @@
       <p><%= @book.author %></p>
       <p><strong>Publish Year:</strong></p>
       <p><%= @book.publish_year %></p>
-
-      <% if !Borrow.exists?(book_id: @book.id) %>
+      <%  borrowed = Borrow.find_by(book_id: @book.id, ended_at: nil) %>
+      <% if !borrowed %>
         <%= form_with(url: borrow_book_path(@book), method: :patch) do |form| %>
-          <%= form.submit 'Borrow', class: 'btn btnerror' %>
-        <% end %>
-      <% else %>
-        <% if Borrow.exists?(book_id: @book.id) && (current_user && Borrow.where(book_id: @book.id, user_id: current_user.id).exists?) %>
+          <%= form.submit 'Borrow', class: 'btn btn-success' %>
+        <% end %> 
+      <% elsif borrowed && current_user && current_user.id == borrowed.user_id  %>
           <%= form_with(url: return_book_path(@book), method: :patch) do |form| %>
-            <%= form.submit 'Return the book', class: 'btn btn-danger' %>
-          <% end %>
-        <% elsif Borrow.exists?(book_id: @book.id) %>
+            <%= form.submit 'Return', class: 'btn btn-danger' %>
+          <% end %> 
+      <% elsif (borrowed && current_user && !current_user.id == borrowed.user_id) || (borrowed && !current_user)%>
           <p class="reserved-text">Already Reserved</p>
-        <% end %>
-      <% end %>
+      <%end%>
       <%= link_to 'Back', books_path, class: 'btn btn-secondary' %>
     </div>
   </div>

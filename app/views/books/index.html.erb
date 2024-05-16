@@ -21,13 +21,13 @@
           <div class="book">
             <h5><%= book.title %></h2>
             <p><%= book.author %></p>
+            <%  borrowed = Borrow.find_by(book_id: book.id, ended_at: nil) %>
             <%= link_to 'Show more', book_path(book), class: 'btn btn-success' %>
-            <% if Borrow.exists?(book_id: book.id) && (current_user && Borrow.where(book_id: book.id, user_id: current_user.id).exists?) %>
+            <% if borrowed && current_user && current_user.id == borrowed.user_id %>
                 <%= link_to 'Return the book', book_path(book), class: 'btn btn-danger' %>
-            <% elsif Borrow.exists?(book_id: book.id) %>
-              <p class="reserved-text">Already Reserved</p>
-            <% end %>
-
+            <% elsif (borrowed && current_user && !current_user.id == borrowed.user_id) || (borrowed && !current_user)%>
+                <p class="reserved-text">Already Reserved</p>
+            <%end%>
           </div>
         </div>
       <% end %>

@@ -15,7 +15,8 @@ class BooksController < ApplicationController
     @user = current_user
     @borrow = Borrow.find_by(user: @user, book: @book)
   
-    if @borrow.present? && @borrow.destroy
+    if @borrow.present?
+      @borrow.update(ended_at: DateTime.now)
       redirect_to books_path, notice: "Book returned successfully."
     else
       redirect_to books_path, alert: "Failed to return the book."
@@ -25,14 +26,20 @@ class BooksController < ApplicationController
   def borrow
     @book = Book.find(params[:id])
     @user = current_user
-    @borrow = Borrow.new(user: @user, book: @book, started_at: DateTime.now)
-
-    if @borrow.save
-      redirect_to books_path
+    @borrow = Borrow.find_or_initialize_by(user: @user, book: @book)
+  
+    if @borrow.new_record? || @borrow.ended_at.present?
+      @borrow.started_at = DateTime.now
+      @borrow.ended_at = nil
+      if @borrow.save
+        redirect_to books_path, notice: "Book borrowed successfully."
+      else
+        redirect_to @book, alert: "Failed to borrow the book."
+      end
     else
-      redirect_to @book, alert: "Failed to borrow the book."
+      redirect_to books_path, alert: "You have already borrowed this book."
     end
-  end
+  end  
 
   def new
     @book = Book.new
