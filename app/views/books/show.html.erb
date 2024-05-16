@@ -19,7 +19,7 @@
           <%= form_with(url: return_book_path(@book), method: :patch) do |form| %>
             <%= form.submit 'Return', class: 'btn btn-danger' %>
           <% end %> 
-      <% elsif (borrowed && current_user && !current_user.id == borrowed.user_id) || (borrowed && !current_user)%>
+      <% elsif (borrowed && current_user && current_user.id != borrowed.user_id) || (borrowed && !current_user)%>
           <p class="reserved-text">Already Reserved</p>
       <%end%>
       <%= link_to 'Back', books_path, class: 'btn btn-secondary' %>

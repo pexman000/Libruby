@@ -25,7 +25,7 @@
             <%= link_to 'Show more', book_path(book), class: 'btn btn-success' %>
             <% if borrowed && current_user && current_user.id == borrowed.user_id %>
                 <%= link_to 'Return the book', book_path(book), class: 'btn btn-danger' %>
-            <% elsif (borrowed && current_user && !current_user.id == borrowed.user_id) || (borrowed && !current_user)%>
+            <% elsif (borrowed && current_user && current_user.id != borrowed.user_id) || (borrowed && !current_user)%>
                 <p class="reserved-text">Already Reserved</p>
             <%end%>
           </div>
